@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SuperTraders.Core\SuperTraders.Core.csproj" />
+      <ProjectReference Include="..\SuperTraders.Data\SuperTraders.Data.csproj" />
+      <ProjectReference Include="..\SuperTraders.Infrastructure\SuperTraders.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

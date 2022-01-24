@@ -1,0 +1,29 @@
+# IDE settings
+.idea
+.vs
+
+# Build Files
+SuperTraders.Core/bin/
+SuperTraders.Core/obj/
+SuperTraders.Core/bin/*
+SuperTraders.Core/obj/*
+SuperTraders.Data/bin/
+SuperTraders.Data/obj/
+SuperTraders.Data/bin/*
+SuperTraders.Data/obj/*
+SuperTraders.Infrastructure/bin/
+SuperTraders.Infrastructure/obj/
+SuperTraders.Infrastructure/bin/*
+SuperTraders.Infrastructure/obj/*
+SuperTraders.Presentation/bin/
+SuperTraders.Presentation/obj/
+SuperTraders.Presentation/bin/*
+SuperTraders.Presentation/obj/*
+SuperTraders.Services/bin/
+SuperTraders.Services/obj/
+SuperTraders.Services/bin/*
+SuperTraders.Services/obj/*
+
+
+# Cache Files
+*.cache
