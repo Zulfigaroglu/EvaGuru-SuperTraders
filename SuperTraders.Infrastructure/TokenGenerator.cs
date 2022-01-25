@@ -74,40 +74,26 @@ namespace SuperTraders.Infrastructure
             _claims.Add(tmpClaim);
         }
 
-        public bool IsPublicToken()
-        {
-            try
-            {
-                if (_claims.FirstOrDefault(clm => clm.Type == "Public") != null)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         public string GenerateToken(string claimType = "", int endDay = 30)
         {
             _startTime = DateTime.Now;
             _endTime = DateTime.Now.AddDays(endDay);
             byte[] key = Encoding.ASCII.GetBytes(_tokenKey);
-            SecurityTokenDescriptor mainSecurityTokenDescriptor = new SecurityTokenDescriptor();
-            mainSecurityTokenDescriptor.Subject = new ClaimsIdentity();
+            SecurityTokenDescriptor mainSecurityTokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(),
+                IssuedAt = _startTime,
+                Expires = _endTime,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+            
+            mainSecurityTokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, claimType));
             foreach (Claim tmpClaim in _claims)
             {
                 mainSecurityTokenDescriptor.Subject.AddClaim(tmpClaim);
             }
 
-            mainSecurityTokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, claimType));
-            mainSecurityTokenDescriptor.IssuedAt = _startTime;
-            mainSecurityTokenDescriptor.Expires = _endTime;
-            mainSecurityTokenDescriptor.SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                SecurityAlgorithms.HmacSha256Signature);
             SecurityToken token = _mainJwtSecurityTokenHandler.CreateToken(mainSecurityTokenDescriptor);
             return "Bearer " + _mainJwtSecurityTokenHandler.WriteToken(token);
         }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+using System.Linq;
 
 namespace SuperTraders.Core.Entities
 {
@@ -14,11 +13,19 @@ namespace SuperTraders.Core.Entities
         public string Code { get; set; }
         
         public ICollection<UserShare> UserShares { get; set; }
-
-        public UserShare GetLowestPricedSellOrder()
+        
+        public ICollection<SellOrder> SellOrders { get; set; }
+        
+        public ICollection<BuyOrder> BuyOrders { get; set; }
+        
+        public float Price
         {
-            // TODO: Will be implemented
-            return new UserShare();
+            get => GetLowestPricedSellOrder()!.UnitPrice;
+        }
+
+        public SellOrder? GetLowestPricedSellOrder()
+        {
+            return SellOrders.OrderBy(so => so.UnitPrice).FirstOrDefault();
         }
     }
 }

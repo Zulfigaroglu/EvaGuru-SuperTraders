@@ -1,27 +1,24 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
-using SuperTraders.Core.DTOs;
 using SuperTraders.Core.Entities;
 using SuperTraders.Data.Repositories.Infrastructure;
-using SuperTraders.Infrastructure;
 using SuperTraders.Services.Infrastructure;
 
 namespace SuperTraders.Services
 {
     public class ShareService: IShareService
     {
-        private readonly IUserRepository UserRepository;
+        private readonly IShareRepository _shareRepository;
 
-        public ShareService(IUserRepository UserRepository)
+        public ShareService(IShareRepository shareRepository)
         {
-            this.UserRepository = UserRepository;
+            _shareRepository = shareRepository;
         }
 
-        public Task<ICollection<Share>> All()
+        public async Task<ICollection<Share>> All()
         {
-            throw new NotImplementedException();
+            ICollection<Share> shares = await _shareRepository.All();
+            return shares;
         }
     }
 }

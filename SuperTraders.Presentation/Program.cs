@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SuperTraders.Data;
+using SuperTraders.Presentation.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1",
-        new OpenApiInfo {Title = "SuperTraders", Version = "v1", Description = "There is no Description AQ!"});
+        new OpenApiInfo {Title = "SuperTraders", Version = "v1", Description = "Lorem Ipsum Dolor Sit Amet :D"});
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "It's just Swagger AQ!",
@@ -65,14 +66,20 @@ builder.Services.AddSingleton(mapper);
 
 // Dependency Injections
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IShareRepository, ShareRepository>();
+builder.Services.AddTransient<ISellOrderRepository, SellOrderRepository>();
+builder.Services.AddTransient<IBuyOrderRepository, BuyOrderRepository>();
+builder.Services.AddTransient<ITransactionRepository, TransactionRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IShareService, ShareService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 
 builder.Services.AddDbContextPool<ApplicationContext>(options =>
 {
     options.UseNpgsql("User ID=eva;Password=12345678;Server=localhost;Port=5432;Database=super_traders;Integrated Security=true;Pooling=true;");
 });
 
-byte[] _tokenKey = Encoding.ASCII.GetBytes("evacommerce");
+byte[] _tokenKey = Encoding.ASCII.GetBytes("adshjbsdkjbhfkjashfkjnjasklfjlas");
 builder.Services.AddAuthentication(x =>
     {
         x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -106,7 +113,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("MyPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-//app.UseMiddleware<AuthenticationMiddleware>();
+app.UseMiddleware<AuthenticationMiddleware>();
 
 app.MapControllers();
 

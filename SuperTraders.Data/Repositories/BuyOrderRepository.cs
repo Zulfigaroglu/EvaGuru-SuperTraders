@@ -3,9 +3,9 @@ using SuperTraders.Data.Repositories.Infrastructure;
 
 namespace SuperTraders.Data.Repositories
 {
-    public class ShareRepository : BaseRepository<Share>, IShareRepository
+    public class BuyOrderRepository : BaseRepository<BuyOrder>, IBuyOrderRepository
     {
-        public ShareRepository(ApplicationContext context) : base(context)
+        public BuyOrderRepository(ApplicationContext context) : base(context)
         {
         }
     }

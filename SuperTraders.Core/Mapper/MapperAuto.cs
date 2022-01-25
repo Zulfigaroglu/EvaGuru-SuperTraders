@@ -9,7 +9,8 @@ namespace SuperTraders.Core.Mapper
         public MapperAuto()
         {
             CreateMap<SignUpDto, User>();
-           
+            CreateMap<OrderDto, BuyOrder>();
+            CreateMap<OrderDto, SellOrder>();
         }
     }
 }

@@ -21,6 +21,8 @@ namespace SuperTraders.Core.Entities
         [DefaultValue(false)]
         public bool IsEMailVerified { get; set; }
         
+        public float Balance { get; set; }
+        
         public ICollection<UserShare> UserShares { get; set; }
     }
 }

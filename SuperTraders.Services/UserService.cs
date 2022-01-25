@@ -12,18 +12,17 @@ namespace SuperTraders.Services
     public class UserService: IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMapper _mainMapper;
+        private readonly IMapper _mapper;
 
         public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
-            _mainMapper = mapper;
+            _mapper = mapper;
         }
         
         public async Task<User> Create(SignUpDto signUpDto)
         {
-            var user = _mainMapper.Map<User>(signUpDto);
-            Console.WriteLine(user.EMail);
+            var user = _mapper.Map<User>(signUpDto);
             return await _userRepository.Create(user);
         }
         
